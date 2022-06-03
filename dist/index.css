@@ -5,7 +5,7 @@
 
 .search-container{
    width: 100%;
-   border: solid 1px blue;
+   /* border: solid 1px blue; */
    height: 800px;
 }
 
@@ -44,8 +44,8 @@
 
 .results-container {
    overflow: scroll;
-   border: solid 1px red;
-   height: 800px
+   /* border: solid 1px red; */
+   height: 800px;
 }
 
 .my-card-container {
@@ -59,7 +59,32 @@
 
 .spacer {
    border-top: solid 1px gray;
-   width: 100%;
-   margin-bottom: 50px;
+   margin-left: 5%;
+   width: 80%;
+   margin-bottom: 25px;
 }
 
+.more-results-button {
+   background-color: #007ac2;
+   color: white;
+   border: solid 1px #007ac2;
+   border-radius: 0;
+   padding: 5px;
+   cursor: pointer;
+}
+
+.more-results-button-wrapper {
+   text-align: center;
+   margin-left: 5%;
+   width: 80%;
+   margin-bottom: 25px;
+}
+
+.search-results-single-page {
+   margin-bottom: 25px;
+   overflow: hidden;
+}
+
+.hidden {
+   display: none;
+}
