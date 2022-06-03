@@ -1,0 +1,65 @@
+.search-filter-container {
+   width: 27%;
+   float: left;
+}
+
+.search-container{
+   width: 100%;
+   border: solid 1px blue;
+   height: 800px;
+}
+
+.search-field {
+   width: 250px;
+   padding: 5px;
+   border: solid 1px gray;
+   border-radius: 0;
+   float: left;
+}
+
+.search-field:focus {
+   outline: none;
+   border-radius: 0px;
+}
+
+.search-button {
+   background-color: #007ac2;
+   color: white;
+   border: solid 1px #007ac2;
+   border-radius: 0;
+   padding: 5px;
+   cursor: pointer;
+   float: left;
+}
+
+.search-clear {
+   color: gray;
+   background-color: white;
+   padding: 5px 8px 5px 8px;
+   border: solid 1px gray;
+   border-left: none;
+   cursor: pointer;
+   float: left;
+}
+
+.results-container {
+   overflow: scroll;
+   border: solid 1px red;
+   height: 800px
+}
+
+.my-card-container {
+   display: inline;
+   float: left;
+   max-width: 290px;
+   height: 400px;
+   cursor: pointer;
+   margin: 0 5px 5px 0;
+}
+
+.spacer {
+   border-top: solid 1px gray;
+   width: 100%;
+   margin-bottom: 50px;
+}
+
