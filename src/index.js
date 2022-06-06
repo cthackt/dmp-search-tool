@@ -40,6 +40,8 @@ window.addEventListener('DOMContentLoaded', () => {
          })
    })
 
+   button.click();
+
    // Clear search event handler
    clear.addEventListener("click", () => {
       textInput.value = "";

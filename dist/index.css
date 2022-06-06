@@ -1,5 +1,5 @@
 .search-filter-container {
-   width: 27%;
+   width: 20%;
    float: left;
 }
 
@@ -10,7 +10,7 @@
 }
 
 .search-field {
-   width: 250px;
+   width: 75%;
    padding: 5px;
    border: solid 1px gray;
    border-radius: 0;
