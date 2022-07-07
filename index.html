@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width">
+   <link rel="stylesheet" href="./index.css">
+   <link rel="stylesheet" type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@esri/hub-components@beta/dist/calcite/calcite.css" />  
+   <script src="./index.bundle.js"></script>
+   <script src="./runtime.bundle.js"></script>
+
+   <title>DATA MANAGEMENT SEARCH TOOL</title>
+</head>
+
+<body>
+
+
+   <h2>Data Management Portal Search</h2>
+   <div class="spacer"></div>
+   <div class="body-content">
+      <div class="search-filter-container">
+         <div class="search-container">
+            <input type="text" id="search-field" class="search-field" name="search-field" placeholder="Search...">
+            <button id="search-clear" class="search-clear">X</button>
+            <button id="search-button" class="search-button">Search</button>
+         </div>
+         <div class="filter"></div>
+      </div>
+      <div id="search-gallery" class="results-container"></div>
+   </div>
+   
+   </div>
+
+
+   <script type="module"
+      src="https://cdn.jsdelivr.net/npm/@esri/hub-components@beta/dist/hub-components/hub-components.esm.js"></script>
+</body>
+
+</html>
