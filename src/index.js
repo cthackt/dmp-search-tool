@@ -16,8 +16,6 @@ window.addEventListener('DOMContentLoaded', () => {
    const clear = document.querySelector("#search-clear");
    const textInput = document.querySelector("#search-field");
 
-   
-
    // Search on ENTER key press
    textInput.addEventListener("keypress", (e) => {
       if (e.key === "Enter") {
@@ -26,9 +24,7 @@ window.addEventListener('DOMContentLoaded', () => {
       }
    });
 
-   
-   // Search handler
-   button.addEventListener("click", () => {
+   function search() {
       let gallery = document.querySelector("#search-gallery");
       gallery.innerHTML = "";
       console.log(">>>>>> Search:", textInput.value);
@@ -41,26 +37,76 @@ window.addEventListener('DOMContentLoaded', () => {
             console.log(response)
             displayResults(response, gallery)
 
-            const result0 = response.results[0]
-            const result1 = response.results[1]
+            // const result0 = response.results[0]
+            // const result1 = response.results[1]
 
-            console.log("result 0: ", result0.createdDate.toDateString())
-            console.log("result 1: ", result1)
+            // console.log("result 0: ", result0.createdDate.toDateString())
+            // console.log("result 1: ", result1)
 
-            console.log("1 is newer", result0.createdDate > result1.createdDate)
+            // console.log("1 is newer", result0.createdDate > result1.createdDate)
          })
+   }
+
+   function searchWithTags(tags) {
+      let gallery = document.querySelector("#search-gallery");
+      gallery.innerHTML = "";
+      console.log(">>>>>> Search:", textInput.value);
+      const filter = {
+         "owner": "sccwrp",
+         "terms": `${textInput.value}`,
+         "tags" : `${tags}`
+      }
+      contentSearchService.search({ filter }, { aggregations: "12" })
+         .then(response => {
+            console.log(response)
+            displayResults(response, gallery)
+         })
+   }
+
+   // Search handler
+   button.addEventListener("click", () => {
+      search();
    })
 
-<<<<<<< HEAD
-=======
    //Click search button to populate gallery with results
->>>>>>> 616d29fac9b7baba5a9482f7d4451dcf46ab1acf
    button.click();
 
    // Clear search event handler
    clear.addEventListener("click", () => {
       textInput.value = "";
    });
+
+   // Filter
+
+   let tags = [];
+   let saveButton = document.querySelector("#save-filter-button");
+   let tagsCheckboxArray = document.querySelectorAll(".tags-checkbox");
+
+   
+   saveButton.addEventListener("click", () => {
+      tagsCheckboxArray.forEach(checkbox => {
+         if (checkbox.checked) {
+            tags.push(checkbox.value);
+         }
+      })
+      let tagsObjectString = "{";
+      tags.forEach((tag, i) => {
+         if (i != tags.length - 1) {
+            tagsObjectString += `"${tag}", `;
+         }
+         else {
+            tagsObjectString += `"${tag}"`;
+         }
+         i++;
+      })
+      tagsObjectString += '}'
+
+      console.log(tagsObjectString);
+      searchWithTags(tags);
+      tags = [];
+   })
+
+
 
 });
 
@@ -94,8 +140,8 @@ const displayResults = (response, gallery) => {
             <p>The descriptions here are wonky, so I am putting in this placeholder text to... you guessed it! hold the place of the description. Hopefully these will get cleaned up so we can have something nice here.</p>
             <br>
             <h6>Date Created: <b>${dateCreated.toDateString()}</b></h6> 
-            <!-- <h4>Tags</h4>
-            <p>${theseTags}</p> -->
+            <h4>Tags</h4>
+            <p>${theseTags}</p>
          </calcite-card>
       `)
       newCard.addEventListener("click", () => {
@@ -136,4 +182,3 @@ const createMoreResultsButton = (response, gallery) => {
    gallery.insertAdjacentElement("beforeend", buttonWrapper);
 
 }
-
