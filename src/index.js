@@ -12,9 +12,11 @@ const filter = {
 const urlStart = "https://hub.arcgis.com/maps/" // add id to end of this
 
 window.addEventListener('DOMContentLoaded', () => {
-   const button = document.getElementById("search-button");
+   const button = document.querySelector("#search-button");
    const clear = document.querySelector("#search-clear");
    const textInput = document.querySelector("#search-field");
+
+   
 
    // Search on ENTER key press
    textInput.addEventListener("keypress", (e) => {
@@ -24,6 +26,7 @@ window.addEventListener('DOMContentLoaded', () => {
       }
    });
 
+   
    // Search handler
    button.addEventListener("click", () => {
       let gallery = document.querySelector("#search-gallery");
@@ -37,9 +40,21 @@ window.addEventListener('DOMContentLoaded', () => {
          .then(response => {
             console.log(response)
             displayResults(response, gallery)
+
+            const result0 = response.results[0]
+            const result1 = response.results[1]
+
+            console.log("result 0: ", result0.createdDate.toDateString())
+            console.log("result 1: ", result1)
+
+            console.log("1 is newer", result0.createdDate > result1.createdDate)
          })
    })
 
+<<<<<<< HEAD
+=======
+   //Click search button to populate gallery with results
+>>>>>>> 616d29fac9b7baba5a9482f7d4451dcf46ab1acf
    button.click();
 
    // Clear search event handler
@@ -49,7 +64,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 });
 
-// DISPLAY SEARCH RESULTSY
+// DISPLAY SEARCH RESULTS
 const displayResults = (response, gallery) => {
    const searchResultsPage = document.createElement("div");
    searchResultsPage.classList.add("search-results-single-page");
@@ -57,6 +72,7 @@ const displayResults = (response, gallery) => {
    for (let i = 0; i < response.results.length; i++) {
       let title = response.results[i]["item"]["title"]
       let description = response.results[i]["item"]["description"]
+      let dateCreated = response.results[i].createdDate;
       let tags = response.results[i]["item"]["tags"]
       let link = response.results[i]["item"]["id"]
       
@@ -72,11 +88,14 @@ const displayResults = (response, gallery) => {
       
       newCard.insertAdjacentHTML("beforeend", `
          <calcite-card style="height: 400px">
-            <h2>${title}</h2>
-            <h4>Description</h4>
+            <h4>${title}</h4>
+            <br>
+            <h5>Description</h5>
             <p>The descriptions here are wonky, so I am putting in this placeholder text to... you guessed it! hold the place of the description. Hopefully these will get cleaned up so we can have something nice here.</p>
-            <h4>Tags</h4>
-            <p>${theseTags}</p>
+            <br>
+            <h6>Date Created: <b>${dateCreated.toDateString()}</b></h6> 
+            <!-- <h4>Tags</h4>
+            <p>${theseTags}</p> -->
          </calcite-card>
       `)
       newCard.addEventListener("click", () => {
@@ -115,4 +134,6 @@ const createMoreResultsButton = (response, gallery) => {
 
    buttonWrapper.insertAdjacentElement("beforeend", button);
    gallery.insertAdjacentElement("beforeend", buttonWrapper);
+
 }
+

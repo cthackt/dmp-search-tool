@@ -11,6 +11,6 @@
       "build": "webpack"
    },
    "devDependencies": {
-      "calcite-bootstrap": "^0.4.4"
+      "@webpack-cli/generators": "^2.5.0"
    }
 }
