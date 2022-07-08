@@ -5,22 +5,29 @@ const contentSearchService = new ContentSearchService({
    isPortal: true
 });
 
-const filter = {
-   "owner": "sccwrp"
-}
-
 const urlStart = "https://hub.arcgis.com/maps/" // add id to end of this
 
 window.addEventListener('DOMContentLoaded', () => {
-   const button = document.querySelector("#search-button");
+   const searchButton = document.querySelector("#search-button");
+   let saveButton = document.querySelector("#save-filter-button");
+
    const clear = document.querySelector("#search-clear");
    const textInput = document.querySelector("#search-field");
+   
+   let tagsCheckboxArray = document.querySelectorAll(".tags-checkbox");
+   let tagsArray = [];
+
+   let categCheckboxArray = document.querySelectorAll(".categ-checkbox");
+   let categoriesArray = [];
+
+   let itemTypeCheckboxArray = document.querySelectorAll(".item-type-checkbox")
+   let itemTypesArray = [];
 
    // Search on ENTER key press
    textInput.addEventListener("keypress", (e) => {
       if (e.key === "Enter") {
          e.preventDefault();
-         button.click();
+         searchButton.click();
       }
    });
 
@@ -28,87 +35,139 @@ window.addEventListener('DOMContentLoaded', () => {
       let gallery = document.querySelector("#search-gallery");
       gallery.innerHTML = "";
       console.log(">>>>>> Search:", textInput.value);
-      const filter = {
-         "owner": "sccwrp",
-         "terms": `${textInput.value}`
-      }
-      contentSearchService.search({ filter }, { aggregations: "12" })
-         .then(response => {
-            console.log(response)
-            displayResults(response, gallery)
 
-            // const result0 = response.results[0]
-            // const result1 = response.results[1]
+      let tags = getTags();
+      let categories = getCategories();
+      let itemTypes = getItemTypes()
 
-            // console.log("result 0: ", result0.createdDate.toDateString())
-            // console.log("result 1: ", result1)
-
-            // console.log("1 is newer", result0.createdDate > result1.createdDate)
-         })
-   }
-
-   function searchWithTags(tags) {
-      let gallery = document.querySelector("#search-gallery");
-      gallery.innerHTML = "";
-      console.log(">>>>>> Search:", textInput.value);
-      const filter = {
+      let filter = {
          "owner": "sccwrp",
          "terms": `${textInput.value}`,
-         "tags" : `${tags}`
+         "tags": `${tags}`,
+         "categories": `${categories}`
       }
-      contentSearchService.search({ filter }, { aggregations: "12" })
+      filter.type = itemTypes;
+
+      contentSearchService.search({ filter })
          .then(response => {
             console.log(response)
+            response.results.forEach(result => {
+               console.log("item type: ", result.type)
+            })
             displayResults(response, gallery)
-         })
+         });
    }
 
    // Search handler
-   button.addEventListener("click", () => {
+   searchButton.addEventListener("click", () => {
       search();
    })
 
    //Click search button to populate gallery with results
-   button.click();
+   searchButton.click();
 
    // Clear search event handler
    clear.addEventListener("click", () => {
       textInput.value = "";
    });
 
-   // Filter
+   // Filter handling
 
-   let tags = [];
-   let saveButton = document.querySelector("#save-filter-button");
-   let tagsCheckboxArray = document.querySelectorAll(".tags-checkbox");
-
-   
-   saveButton.addEventListener("click", () => {
+   // Tags
+   function getTags() {
       tagsCheckboxArray.forEach(checkbox => {
          if (checkbox.checked) {
-            tags.push(checkbox.value);
+            tagsArray.push(checkbox.value);
          }
       })
-      let tagsObjectString = "{";
-      tags.forEach((tag, i) => {
-         if (i != tags.length - 1) {
-            tagsObjectString += `"${tag}", `;
+      // Creating tags object for filter interface
+      if (tagsArray.length > 0) {
+         let tagsObjectString = "{";
+         tagsArray.forEach((tag, i) => {
+            if (i != tagsArray.length - 1) {
+               tagsObjectString += `"${tag}", `;
+            }
+            else {
+               tagsObjectString += `"${tag}"`;
+            }
+            i++;
+         })
+         tagsObjectString += '}'
+
+         console.log("TAGS OBJECT STRING: ", tagsObjectString);
+         tagsArray = [];
+         return tagsObjectString;
+      } else {
+         return "";
+      }
+   }
+
+   // Categories
+
+   function getCategories() {
+      categCheckboxArray.forEach(checkbox => {
+         if (checkbox.checked) {
+            categoriesArray.push(checkbox.value);
          }
-         else {
-            tagsObjectString += `"${tag}"`;
-         }
-         i++;
       })
-      tagsObjectString += '}'
+      // Creating tags object for filter interface
+      if (categoriesArray.length > 0) {
+         let categObjectString = "{";
+         categoriesArray.forEach((category, i) => {
+            if (i != categoriesArray.length - 1) {
+               categObjectString += `"${category}", `;
+            }
+            else {
+               categObjectString += `"${category}"`;
+            }
+            i++;
+         })
+         categObjectString += '}'
 
-      console.log(tagsObjectString);
-      searchWithTags(tags);
-      tags = [];
-   })
+         console.log("CATEGORY OBJECT STRING: ", categObjectString);
+         categoriesArray = [];
+         return categObjectString;
+      } else {
+         return "";
+      }
+   }
+
+   // Item Types
+
+   function getItemTypes() {
+      itemTypeCheckboxArray.forEach(checkbox => {
+         if (checkbox.checked) {
+            itemTypesArray.push(checkbox.value);
+         }
+      })
+      // Creating tags object for filter interface
+      if (itemTypesArray.length > 0) {
+         let itemTypeObjectString = "{";
+         itemTypesArray.forEach((itemType, i) => {
+            if (i != itemTypesArray.length - 1) {
+               itemTypeObjectString += `"${itemType}", `;
+            }
+            else {
+               itemTypeObjectString += `"${itemType}"`;
+            }
+            i++;
+         })
+         itemTypeObjectString += '}'
+
+         console.log("CATEGORY OBJECT STRING: ", itemTypeObjectString);
+         itemTypesArray = [];
+         return itemTypeObjectString;
+      } else {
+         return "";
+      }
+   }
 
 
-
+   saveButton.addEventListener("click", () => {
+      search();
+   })   
 });
+
 
 // DISPLAY SEARCH RESULTS
 const displayResults = (response, gallery) => {
