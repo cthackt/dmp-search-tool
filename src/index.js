@@ -14,14 +14,11 @@ window.addEventListener('DOMContentLoaded', () => {
    const clear = document.querySelector("#search-clear");
    const textInput = document.querySelector("#search-field");
    
-   let tagsCheckboxArray = document.querySelectorAll(".tags-checkbox");
-   let tagsArray = [];
+   
 
-   let categCheckboxArray = document.querySelectorAll(".categ-checkbox");
-   let categoriesArray = [];
+   
 
-   let itemTypeCheckboxArray = document.querySelectorAll(".item-type-checkbox")
-   let itemTypesArray = [];
+   
 
    let sortFieldButton = document.querySelector("#sort-button");
    let sortOrderButton = document.querySelector("#sort-order-button")
@@ -110,6 +107,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
    // Tags
    function getTags() {
+      let tagsCheckboxArray = document.querySelectorAll(".tags-checkbox");
+      let tagsArray = [];
       tagsCheckboxArray.forEach(checkbox => {
          if (checkbox.checked) {
             tagsArray.push(checkbox.value);
@@ -140,12 +139,14 @@ window.addEventListener('DOMContentLoaded', () => {
    // Categories
 
    function getCategories() {
+      let categCheckboxArray = document.querySelectorAll(".categ-checkbox");
+      let categoriesArray = [];
       categCheckboxArray.forEach(checkbox => {
          if (checkbox.checked) {
             categoriesArray.push(checkbox.value);
          }
       })
-      // Creating tags object for filter interface
+      // Creating category object for filter interface
       if (categoriesArray.length > 0) {
          let categObjectString = "{";
          categoriesArray.forEach((category, i) => {
@@ -170,12 +171,14 @@ window.addEventListener('DOMContentLoaded', () => {
    // Item Types
 
    function getItemTypes() {
+      let itemTypeCheckboxArray = document.querySelectorAll(".item-type-checkbox")
+      let itemTypesArray = [];
       itemTypeCheckboxArray.forEach(checkbox => {
          if (checkbox.checked) {
             itemTypesArray.push(checkbox.value);
          }
       })
-      // Creating tags object for filter interface
+      // Creating item type object for filter interface
       if (itemTypesArray.length > 0) {
          let itemTypeObjectString = "{";
          itemTypesArray.forEach((itemType, i) => {
@@ -195,6 +198,34 @@ window.addEventListener('DOMContentLoaded', () => {
       } else {
          return "";
       }
+   }
+
+   document.querySelectorAll(".add-filter-button").forEach(button => {
+      button.addEventListener("click", (e) => {
+         e.preventDefault();
+         let form = document.querySelector("#" + e.target.parentElement.id);
+         let text = document.querySelector("#" + button.id.substring(0, button.id.length - 6) + "text").value;
+         let checkbox = document.createElement("input")
+         checkbox.type = "checkbox";
+         checkbox.classList.add("tags-checkbox");
+         checkbox.checked = true;
+         checkbox.value = text;
+         checkbox.name = text;
+         let label = document.createElement("label");
+         label.for = text;
+         label.innerHTML = `&nbsp;${text}`;
+
+         
+
+         form.insertAdjacentElement("beforeend", checkbox);
+         form.insertAdjacentElement("beforeend", label);
+
+         
+      })
+   })
+
+   function addFilter() {
+
    }
 
 

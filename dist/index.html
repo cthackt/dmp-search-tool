@@ -33,7 +33,7 @@
                   <div class="col-md-5">
                      <div class="dropdown">
                         <button class="btn dropdown-toggle search-bar-button" type="button" id="sort-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" value="">
-                           <img src="https://img.icons8.com/external-dreamstale-lineal-dreamstale/32/000000/external-sort-arrows-dreamstale-lineal-dreamstale.png" height="20px"/> Sort by: Relevance 
+                           <img src="https://img.icons8.com/external-dreamstale-lineal-dreamstale/32/000000/external-sort-arrows-dreamstale-lineal-dreamstale.png" height="20px"/> Sort by
                         </button>
                         <div id="sort-dropdown" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                            <a id="sortby-rel" class="dropdown-item">Relevance</a>
@@ -61,48 +61,48 @@
                         <h3>Filter</h3>
                      </div>
                      <div class="col-md-6">
-                        <button id="save-filter-button" class="btn btn-primary">Save</button>
+                        <button id="save-filter-button" class="btn btn-primary">Apply</button>
                      </div>
                   </div>
                   <div class="spacer"></div>
                   <h5>Tags</h5>
                   <div class="spacer"></div>
-                  <div class="filter-options-container">
-                     <form action="">
+                  <div id="tags-container" class="filter-options-container">
+                     <form id="tags-form" action="">
+                        <input id="add-tag-text" type="text">
+                        <button id="add-tag-button" class="btn add-filter-button">+</button>
                         <input type="checkbox" id="tags1" name="tags1" class="tags-checkbox" value="Bight18">
                         <label for="tags1"> Bight18</label><br>
                         <input type="checkbox" id="tags2" name="tags2" class="tags-checkbox" value="Chemistry">
                         <label for="tags2"> Chemistry</label><br>
                         <input type="checkbox" id="tags3" name="tags3" class="tags-checkbox" value="Biology">
                         <label for="tags3"> Biology</label><br>
-                        <input id="add-tag-text" type="text">
-                        <button id="add-tag-button" class="btn">+</button>
                       </form>
                   </div>
                   <div class="spacer"></div>
                   <h5>Categories</h5>
                   <div class="spacer"></div>
-                  <div class="filter-options-container">
-                     <form action="">
+                  <div id="categ-container" class="filter-options-container">
+                     <form id="categ-form" action="">
+                        <input id="add-categ-text" type="text">
+                        <button id="add-categ-button" class="btn add-filter-button">+</button>
                         <input type="checkbox" id="categ1" name="categ1" class="categ-checkbox" value="Regional Monitoring">
                         <label for="categ1"> Regional Monitoring</label><br>
                         <input type="checkbox" id="categ2" name="categ2" class="categ-checkbox" value="Sediment Chemistry">
                         <label for="categ2"> Sediment Chemistry</label><br>
-                        <input id="add-categ-text" type="text">
-                        <button id="add-categ-button" class="btn">+</button>
                       </form>
                   </div>
                   <div class="spacer"></div>
                   <h5>Item Types</h5>
                   <div class="spacer"></div>
-                  <div class="filter-options-container">
-                     <form action="">
+                  <div id="type-container" class="filter-options-container">
+                     <form id="type-form" action="">
+                        <input id="add-type-text" type="text">
+                        <button id="add-type-button" class="btn add-filter-button">+</button>
                         <input type="checkbox" id="type1" name="type1" class="item-type-checkbox" value="Feature Service">
                         <label for="type1"> Feature Service</label><br>
                         <input type="checkbox" id="type2" name="type2" class="item-type-checkbox" value="Hub Site Application">
                         <label for="type2"> Hub Site Application</label><br>
-                        <input id="add-type-text" type="text">
-                        <button id="add-type-button" class="btn">+</button>
                       </form>
                   </div>
                   <!-- <div class="spacer"></div>
