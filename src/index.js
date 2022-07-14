@@ -23,6 +23,9 @@ window.addEventListener('DOMContentLoaded', () => {
    let itemTypeCheckboxArray = document.querySelectorAll(".item-type-checkbox")
    let itemTypesArray = [];
 
+   let sortFieldButton = document.querySelector("#sort-button");
+   let sortOrderButton = document.querySelector("#sort-order-button")
+
    // Search on ENTER key press
    textInput.addEventListener("keypress", (e) => {
       if (e.key === "Enter") {
@@ -40,6 +43,9 @@ window.addEventListener('DOMContentLoaded', () => {
       let categories = getCategories();
       let itemTypes = getItemTypes()
 
+      let sortField = sortFieldButton.value;
+      let sortOrder = sortOrderButton.value;
+
       let filter = {
          "owner": "sccwrp",
          "terms": `${textInput.value}`,
@@ -48,15 +54,44 @@ window.addEventListener('DOMContentLoaded', () => {
       }
       filter.type = itemTypes;
 
-      contentSearchService.search({ filter })
+      let options = {
+         "sortField": `${sortField}`,
+         "sortOrder": `${sortOrder}`
+      }
+
+      contentSearchService.search({filter, options})
          .then(response => {
-            console.log(response)
+            console.log(response);
             response.results.forEach(result => {
-               console.log("item type: ", result.type)
+               console.log("item type: ", result.hubType)
             })
             displayResults(response, gallery)
          });
    }
+
+   // Changing what the gallery is sorted by
+   document.querySelector("#sortby-rel").addEventListener("click", () => {
+      sortFieldButton.value = "";
+      search();
+   })
+   document.querySelector("#sortby-pop").addEventListener("click", () => {
+      sortFieldButton.value = "numViews";
+      search();
+   })
+   document.querySelector("#sortby-date").addEventListener("click", () => {
+      sortFieldButton.value = "created";
+      search();
+   })
+
+   sortOrderButton.addEventListener("click", () => {
+      if (sortOrderButton.value == "asc") {
+         sortOrderButton.value = "desc";
+         search();
+      } else {
+         sortOrderButton.value = "asc"
+         search();
+      }
+   })
 
    // Search handler
    searchButton.addEventListener("click", () => {
@@ -180,6 +215,7 @@ const displayResults = (response, gallery) => {
       let dateCreated = response.results[i].createdDate;
       let tags = response.results[i]["item"]["tags"]
       let link = response.results[i]["item"]["id"]
+      let numViews = response.results[i].numViews;
       
       let newCard = document.createElement("div");
       let thisCardId = "card" + link;
@@ -192,15 +228,18 @@ const displayResults = (response, gallery) => {
       });
       
       newCard.insertAdjacentHTML("beforeend", `
-         <calcite-card style="height: 400px">
+         <calcite-card style="height: 400px; width: 300px;">
             <h4>${title}</h4>
-            <br>
+            <!-- <br>
             <h5>Description</h5>
             <p>The descriptions here are wonky, so I am putting in this placeholder text to... you guessed it! hold the place of the description. Hopefully these will get cleaned up so we can have something nice here.</p>
-            <br>
+            <br> -->
             <h6>Date Created: <b>${dateCreated.toDateString()}</b></h6> 
-            <h4>Tags</h4>
+            <h6>Tags</h6>
             <p>${theseTags}</p>
+            <h6>Views: <b>${numViews}</b></h6>
+
+
          </calcite-card>
       `)
       newCard.addEventListener("click", () => {

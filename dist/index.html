@@ -32,19 +32,22 @@
                <div class="row">
                   <div class="col-md-5">
                      <div class="dropdown">
-                        <button class="btn dropdown-toggle search-bar-button" type="button" id="sort-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="btn dropdown-toggle search-bar-button" type="button" id="sort-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" value="">
                            <img src="https://img.icons8.com/external-dreamstale-lineal-dreamstale/32/000000/external-sort-arrows-dreamstale-lineal-dreamstale.png" height="20px"/> Sort by: Relevance 
                         </button>
                         <div id="sort-dropdown" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                          <a id="sortby-rel" class="dropdown-item">Relevance</a>
-                          <a id="sortby-pub" class="dropdown-item">Publish Date</a>
-                          <a id="sortby-pop" class="dropdown-item">Popularity</a>
+                           <a id="sortby-rel" class="dropdown-item">Relevance</a>
+                           <a id="sortby-date" class="dropdown-item">Publish Date</a>
+                           <a id="sortby-pop" class="dropdown-item">Popularity</a>
                         </div>
                      </div>
                   </div>
+                  <div class="col-md-2">
+                     <button id="sort-order-button" class="btn search-bar-button" value="asc"><img src="https://img.icons8.com/ios-glyphs/30/000000/sort.png" height="20px"/></button>
+                  </div> 
                   <div class="col-md-3">
                      <button id="filter-button" class="btn search-bar-button"><img src="https://img.icons8.com/ios/50/000000/empty-filter.png" height="20px"/> Filter</button>
-                  </div>                  
+                  </div>    
                </div>
             </div>
          </div>

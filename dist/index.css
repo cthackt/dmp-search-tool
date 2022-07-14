@@ -31,11 +31,9 @@
 
 .search-bar-button {
    padding: 18px !important;
-   margin-left: 20px;
    width: 100%;
    overflow: hidden;
 }
-
 
 .search-clear {
    color: gray;
